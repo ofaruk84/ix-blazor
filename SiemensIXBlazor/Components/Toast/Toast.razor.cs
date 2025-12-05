@@ -15,7 +15,7 @@ namespace SiemensIXBlazor.Components
 {
     public partial class Toast
     {
-        public async Task ShowToast(ToastConfig config)
+        public async Task<ToastReference> ShowToast(ToastConfig config)
         {
             if (config == null)
             {
@@ -24,7 +24,13 @@ namespace SiemensIXBlazor.Components
 
             try
             {
-                await JSRuntime.InvokeAsync<object>("siemensIXInterop.showMessage", JsonConvert.SerializeObject(config));
+                // The JS interop will return a toast ID that we can use to control the toast
+                var toastId = await JSRuntime.InvokeAsync<string>(
+                    "siemensIXInterop.showMessage", 
+                    JsonConvert.SerializeObject(config)
+                );
+                
+                return new ToastReference(toastId, JSRuntime);
             }
             catch (JSException jsException)
             {

@@ -25,8 +25,8 @@ namespace SiemensIXBlazor.Objects
 		/// </remarks>
 		[JsonProperty("action")]
 		public string? Action { get; set; }
-		[JsonProperty("autoClose")]
-		public bool AutoClose { get; set; } = true;
+		[JsonProperty("preventAutoClose")]
+		public bool PreventAutoClose { get; set; } = false;
 		[JsonProperty("autoCloseDelay")]
 		public int AutoCloseDelay { get; set; } = 5000;
 		[JsonProperty("icon")]
